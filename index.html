@@ -1,0 +1,163 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156935549-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-156935549-3');
+  </script>
+
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Other -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
+
+    <title>M^2BEV: Multi-Camera Joint 3D Detection and Segmentation with Unified Bird’s-Eye View Representation</title>
+  </head>
+  <body>
+
+    <div style="overflow: hidden; background-color: #6699cc;">
+      <div class="container">
+      <a href=https://www.nvidia.com/ style="float: left; color: black; text-align: center; padding: 12px 16px; text-decoration: none; font-size: 16px;"><img width="100%" src="https://nv-tlabs.github.io/3DStyleNet/assets/nvidia.svg"></a> 
+      <a href=https://nv-tlabs.github.io/ style="float: left; color: black; text-align: center; padding: 14px 16px; text-decoration: none; font-size: 16px;"><strong>Toronto AI Lab</strong></a>
+      </div>
+    </div>
+
+    <!-- header -->
+    <div class='jumbotron' style="background-color:#e6e9ec">
+    <div class="container">
+
+    <h1 class="text-center">M^2BEV: Multi-Camera Joint 3D Detection and Segmentation with Unified Bird’s-Eye View Representation</h1>
+    <p class='text-center'>
+        <a href="https://xieenze.github.io/">Enze Xie</a>,
+        <a href="https://chrisding.github.io/">Zhiding Yu</a>,
+        <a href="https://scholar.google.com/citations?user=DdCAbWwAAAAJ&hl=en">Daquan Zhou</a>,
+        <a href="https://www.cs.toronto.edu/~jphilion/">Jonah Philion</a>,
+        <a href="http://tensorlab.cms.caltech.edu/users/anima/">Anima Anandkumar</a>,
+        <a href="https://www.cs.utoronto.ca/~fidler/">Sanja Fidler</a>,
+        <a href="http://luoping.me/">Ping Luo</a>,
+        <a href="https://alvarezlopezjosem.github.io/">Jose M. Alvarez</a>        
+    </p>
+    <p class='text-center'>The University of Hong Kong, NVIDIA, National University of Singapore, University of Toronto, Vector Institute, Caltech</p>
+    <p class='text-center'>Tech Report</p>
+    <p class='text-center'><img src='figs/demo.gif' class='img-fluid' style='width:1050px; border-radius:15px; padding:5px'></p>
+
+   
+    </div>
+    </div>
+
+    <div class="container">
+
+      <p>
+        In this paper, we propose M^2BEV, a unified framework that jointly performs 3D object detection and map segmentation in the Bird's Eye View~(BEV) space with multi-camera image inputs. Unlike the majority of previous works which separately process detection and segmentation, M^2BEV infers both tasks with a unified model and improves efficiency. M^2BEV efficiently transforms multi-view 2D image features into the 3D BEV feature in ego-car coordinates.
+        Such BEV representation is important as it enables different tasks to share a single encoder. Our framework further contains four important designs that benefit both accuracy and efficiency: 
+        (1) An efficient BEV encoder design that reduces the spatial dimension of a voxel feature map.
+        (2) A dynamic box assignment strategy that uses learning-to-match to assign ground-truth 3D boxes with anchors. 
+        (3) A BEV centerness re-weighting that reinforces with larger weights for more distant predictions, and
+        (4) Large-scale 2D detection pre-training and auxiliary supervision.
+        We show that these designs significantly benefit the ill-posed camera-based 3D perception tasks where depth information is missing. M^2BEV is memory efficient, allowing significantly higher resolution images as input, with faster inference speed.
+        Experiments on nuScenes show that M^2BEV achieves state-of-the-art results in both 3D object detection and BEV segmentation, with the best single model achieving 42.5 mAP and 57.0 mIoU in these two tasks, respectively. 
+      </p>
+
+    <hr/>
+
+    <span class="border border-white">
+    <h4 class="text-center">News</h4>
+    <ul>
+      <li>[2022.04] paper released on <a href='https://arxiv.org/abs/2204.05088' target="_blank">arxiv</a></li>
+    </ul>
+    </span>
+
+    <!-- <hr/> -->
+
+    <hr/>
+    <h4 class='text-center'>Main Idea</h4>
+    <b>Two solutions for multi-camera AV perception.</b> 
+    Top: Multiple task-specific networks operating on individual
+    2D views cannot share features across tasks, and output
+    view-specific results that need post-processing to fuse
+    into the final, world-consistent output. Bottom: M^2BEV
+    with a unified BEV feature representation, supporting
+    multi-view multi-task learning with a single network.
+
+    
+    <p class='text-center'><img src='figs/idea.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; height: 400px;"></p>
+
+    <hr/>
+    <h4 class='text-center'>Overview</h4>
+
+    <b>The overall pipeline of M^2BEV.</b>  Given N images at timestamp T and corresponding
+    intrinsic and extrinsic camera parameters as input, the encoder first extracts 2D features from the
+    multi-view images, then the 2D features are unprojected to the 3D ego-car coordinate frame to
+    generate a Bird’s-Eye View (BEV) feature representation. Finally, task-specific heads are adopted
+    to predict 3D objects and maps.
+
+    <p class='text-center'><img src='figs/pipeline.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 1000px;"></p> 
+
+    <!-- <hr/>
+    <h4 class='text-center'>Some Important Designs</h4>
+
+    <p class='text-center'><img src='figs/design1.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 1000px;"></p>
+    <p class='text-center'><img src='figs/design2.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 1000px;"></p> -->
+
+
+
+   
+
+    <!-- <p class='text-center'><img src='imgs/results.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; height: 120px;">
+    <figcaption class="figure-caption text-center">Bird's-Eye-View Segmentation IOU (nuScenes and Lyft)</figcaption>
+    </p>
+
+    <p class='text-center'><img src='imgs/nusc.gif' class='img-fluid' style='height:250px; border-radius:15px; padding:5px'>
+    <figcaption class="figure-caption text-center"><b>nuScenes validation set</b> Input images are shown on the left. BEV inference output by our model is shown on the right. The BEV semantics are additionally projected back onto the input images for visualization convenience.</figcaption>
+    </p> -->
+
+    
+
+    <!-- <div class='row'>
+      <div class='col-6 text-center'>
+        <iframe src="https://drive.google.com/file/d/1dGU0zmsxJgFtXMkkHrD2P6DB_JjlvYnQ/preview" width="90%"></iframe>
+        <figcaption class="figure-caption text-center"><b>Camera Dropout</b> At test time, we remove different cameras from the camera rig. When a camera is removed, the network imputes semantics in the blind-spot by using information in the remaining cameras as well as priors about object shapes and road structure.</figcaption>
+      </div>
+      <div class='col-6 text-center'>
+        <iframe src="https://drive.google.com/file/d/1XwqzDYfzXhky1WNuXTKy7i-jVXgp4hc_/preview" width="90%"></iframe>
+        <figcaption class="figure-caption text-center"><b>Train on nuScenes -> Test on Lyft</b> We evaluate a model trained on the nuScenes dataset on the Lyft dataset. Segmentations output by the model are fuzzy but still meaningful. Quantitative transfer results against baselines can be found in our <a href='https://arxiv.org/pdf/2008.05711.pdf' target='_blank'>paper</a>.</figcaption>
+      </div>
+    </div> -->
+
+    <hr/>
+    <h4 class='text-center'>M^2BEV Demo - Day</h4>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oOemWNjX7o8" style='display:block;' allowfullscreen></iframe>
+    </div>
+    <br>
+
+    <hr/>
+    <h4 class='text-center'>M^2BEV Demo - Night</h4>
+    <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UF4b45qTzLU" allowfullscreen></iframe>
+    </div>
+    <br>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
