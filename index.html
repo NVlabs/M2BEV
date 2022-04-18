@@ -511,9 +511,8 @@
     view-specific results that need post-processing to fuse
     into the final, world-consistent output. Bottom: M^2BEV
     with a unified BEV feature representation, supporting
-    multi-view multi-task learning with a single network.
+    <span style="color:#C71585">multi-view</span> <span style="color:#FF7F4F">multi-task</span> learning with a single network.
 
-    
     <p class='text-center'><img src='figs/idea.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; height: 400px;"></p>
 
     <hr/>
@@ -534,32 +533,23 @@
     <p class='text-center'><img src='figs/design2.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 1000px;"></p> -->
 
 
+    <hr/>
+    <h4 class='text-center'>Results</h4>
 
-   
+    M^2BEV achieves state-of-the-art results on both 3D object detection and BEV segmentation on the nuScenes dataset. 
+    Moreover, benefit from the unified BEV representation, M^2BEV is more runtime-efficient than both detection-only and segmentation-only methods.
 
-    <!-- <p class='text-center'><img src='imgs/results.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; height: 120px;">
-    <figcaption class="figure-caption text-center">Bird's-Eye-View Segmentation IOU (nuScenes and Lyft)</figcaption>
-    </p>
 
-    <p class='text-center'><img src='imgs/nusc.gif' class='img-fluid' style='height:250px; border-radius:15px; padding:5px'>
-    <figcaption class="figure-caption text-center"><b>nuScenes validation set</b> Input images are shown on the left. BEV inference output by our model is shown on the right. The BEV semantics are additionally projected back onto the input images for visualization convenience.</figcaption>
-    </p> -->
+    <p class='text-center'><img src='figs/det_perf.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 700px;"></p> 
+    <p class='text-center'><img src='figs/segm_perf.png' class='img-fluid' style="border:0px solid #000000; border-radius: 15px; width: 700px;"></p> 
 
     
-
-    <!-- <div class='row'>
-      <div class='col-6 text-center'>
-        <iframe src="https://drive.google.com/file/d/1dGU0zmsxJgFtXMkkHrD2P6DB_JjlvYnQ/preview" width="90%"></iframe>
-        <figcaption class="figure-caption text-center"><b>Camera Dropout</b> At test time, we remove different cameras from the camera rig. When a camera is removed, the network imputes semantics in the blind-spot by using information in the remaining cameras as well as priors about object shapes and road structure.</figcaption>
-      </div>
-      <div class='col-6 text-center'>
-        <iframe src="https://drive.google.com/file/d/1XwqzDYfzXhky1WNuXTKy7i-jVXgp4hc_/preview" width="90%"></iframe>
-        <figcaption class="figure-caption text-center"><b>Train on nuScenes -> Test on Lyft</b> We evaluate a model trained on the nuScenes dataset on the Lyft dataset. Segmentations output by the model are fuzzy but still meaningful. Quantitative transfer results against baselines can be found in our <a href='https://arxiv.org/pdf/2008.05711.pdf' target='_blank'>paper</a>.</figcaption>
-      </div>
-    </div> -->
+  
 
     <hr/>
     <h4 class='text-center'>M^2BEV Demo - Day</h4>
+
+    M^2BEV is able to detect dense obstacles and segment maps accurately under complex road conditions.
     <div class="embed-responsive embed-responsive-16by9">
       <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/oOemWNjX7o8" style='display:block;' allowfullscreen></iframe>
     </div>
@@ -567,6 +557,9 @@
 
     <hr/>
     <h4 class='text-center'>M^2BEV Demo - Night</h4>
+
+    M^2BEV is also able to learn to see objects and environments clearly in the dark.
+
     <div class="embed-responsive embed-responsive-16by9">
       <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UF4b45qTzLU" allowfullscreen></iframe>
     </div>
@@ -581,8 +574,6 @@
       year={2022}
     }
   }</code></pre>
-
-  
 
 
 
